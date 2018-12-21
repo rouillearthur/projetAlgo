@@ -5,7 +5,7 @@ HISTOT=histoTest
 .PHONY: all clear
 all: $(HISTOT)
 
-$(HISTOT): histoTest.o histogram.o
+$(HISTOT): histogram.o histoTest.o 
 	$(CC) $^ -o $@
 
 

@@ -1,8 +1,9 @@
 typedef struct cell * cell;
-struct
+struct cell
 {
   unsigned char B;
   int           freq;
   cell          next;
-} cell;
+};
+
 
