@@ -2,7 +2,7 @@
 #include "histogram.h"
 
 cell create_cell(int B, cell next) {
-  cell new_cell=malloc(sizeof(cell));
+  cell new_cell=malloc(sizeof(new_cell));
   new_cell->freq=1;
   new_cell->B=B;
   new_cell->next=next;
@@ -26,9 +26,14 @@ cell insert_cell(cell head, int B) {
     head->B=B+1;
     cell=head;
   }
-  /* On ajoute la cellule contenant B de freq 1 si B n'est pas présent dans head */
+  /* Sinon on ajoute la cellule contenant B de freq 1*/
   else {
     cell=create_cell(1,head);
   }
   return cell;
+}
+
+cell delete_list(cell list) {
+
+  return list;
 }

@@ -6,4 +6,8 @@ struct cell
   cell          next;
 };
 
+cell create_cell(int B, cell next);
 
+cell insert_cell(cell head, int B);
+
+cell delete_list(cell list);
