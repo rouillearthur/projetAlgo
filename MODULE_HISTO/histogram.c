@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "histogram.h"
 
-cell create_cell(int B, cell next) {
+cell* create_cell(int B, cell next) {
   cell *new_cell=malloc(sizeof(new_cell));
   new_cell->freq=1;
   new_cell->B=B;
