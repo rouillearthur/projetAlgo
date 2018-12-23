@@ -11,7 +11,28 @@ cell create_cell(int B, cell next) {
 }
 
 cell insert_cell(cell head, int B) {
+  int exists=0;
+  cell tmp;
+  cell cell;
+  tmp=head;
+  /* On vérifie si B est présent dans la liste head */
+ 	while(tmp->next!=NULL && (tmp->next->B)<B && exists==0) {
+    if(tmp->B==B) {
+    	/* Si B existe, alors on incrémente sa 
+    	valeur de 1 et on sort de la boucle */
+      exists=1;
+    	(tmp->B)++;
+    }
+    else {
+      tmp=tmp->next;
 
+    }
+  }
+
+  /* Sinon on ajoute la cellule contenant B de freq 1 */
+  if (exists==0) {
+    cell=create_cell(B,tmp);
+  }
 
   return cell;
 }

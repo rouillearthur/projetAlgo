@@ -7,7 +7,7 @@ int main() {
 	cell tmp=NULL;
 
 	list=create_cell(20,NULL);
-  list=insert_cell(list,2);
+	list=insert_cell(list,2);
 
 	tmp=list;
 	while (tmp) {
