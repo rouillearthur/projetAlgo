@@ -11,30 +11,40 @@ cell create_cell(int B, cell next) {
 }
 
 cell insert_cell(cell head, int B) {
-  int exists=0;
-  cell tmp;
-  cell cell;
-  tmp=head;
+  int exists;
+
+  cell prec_cell;
+  cell new_cell;
+  cell next_cell;
+
+  exists=0;
+  prec_cell=head;
+  new_cell=NULL;
+  next_cell=head->next;
+
   /* On vérifie si B est présent dans la liste head */
- 	while(tmp->next!=NULL && (tmp->next->B)<B && exists==0) {
-    if(tmp->B==B) {
-    	/* Si B existe, alors on incrémente sa 
-    	valeur de 1 et on sort de la boucle */
+ 	while(next_cell!=NULL && (next_cell->B)<=B && exists==0) {
+    if(next_cell->B==B) {
+    	/* Si B existe, alors on incrémente sa valeur de 1 et 
+    	on sort de la boucle */
       exists=1;
-    	(tmp->B)++;
+    	(prec_cell->B)++;
+    	printf("A %d\n",prec_cell->B);
     }
     else {
-      tmp=tmp->next;
-
+    	prec_cell=next_cell;
+    	next_cell=next_cell->next;
+    	printf("B\n");
     }
   }
 
-  /* Sinon on ajoute la cellule contenant B de freq 1 */
+  /* Si B n'existe pas, on ajoute la cellule contenant B de freq 1 
+  entre prec_cell et next_cell */
   if (exists==0) {
-    cell=create_cell(B,tmp);
+    prec_cell->next=new_cell;
+    new_cell=create_cell(B,next_cell);
   }
-
-  return cell;
+  return head;
 }
 
 cell delete_list(cell list) {
