@@ -5,9 +5,10 @@
 int main() {
 	cell list=NULL;
 	cell tmp=NULL;
-	list=create_cell(1,NULL);
-  /*list=insert_cell(list,2);*/
-	/*list=insert_cell(list,2);*/
+  list=create_cell(1,NULL);
+ 	list=insert_cell(list,1);
+ 	list=insert_cell(list,1);
+	list=insert_cell(list,10);
 	/*list=insert_cell(list,5);
 	list=insert_cell(list,7);
 	list=insert_cell(list,7);*/

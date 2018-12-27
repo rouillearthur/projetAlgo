@@ -3,7 +3,7 @@
 #include "histogram.h"
 
 cell create_cell(int B, cell next) {
-  cell new_cell=malloc(sizeof(new_cell));
+  cell new_cell=(cell)malloc(sizeof(new_cell));
 	new_cell->freq=1;
 	new_cell->B=B;
 	new_cell->next=next;
@@ -13,36 +13,30 @@ cell create_cell(int B, cell next) {
 cell insert_cell(cell head, int B) {
 	int exists;
 
+	cell tmp;
 	cell prec_cell;
-	cell new_cell;
-	cell next_cell;
 
 	exists=0;
-	prec_cell=head;
-	new_cell=NULL;
-	next_cell=head->next;
+  tmp=head;
+	prec_cell=NULL;
 
   /* On vérifie si B est présent dans la liste head */
-	while(next_cell!=NULL && (next_cell->B)<=B && exists==0) {
-		if(next_cell->B==B) {
+	while(tmp && (tmp->B)<=B && exists==0) {
+		if(tmp->B==B) {
 			/* Si B existe, alors on incrémente sa valeur de 1 et 
 			on sort de la boucle */
 			exists=1;
-			(prec_cell->B)++;
-			printf("A %d\n",prec_cell->B);
+			(tmp->freq)++;
     }
 		else {
-				prec_cell=next_cell;
-				next_cell=next_cell->next;
-				printf("B\n");
+		prec_cell=tmp;
+			tmp=tmp->next;
     }
   }
 
-  /* Si B n'existe pas, on ajoute la cellule contenant B de freq 1 
-  entre prec_cell et next_cell */
+  /* Si B n'existe pas, on ajoute la cellule contenant B de freq 1 */
   if (exists==0) {
-		prec_cell->next=new_cell;
-		new_cell=create_cell(B,next_cell);
+		prec_cell=create_cell(B,tmp);
   }
   return head;
 }
