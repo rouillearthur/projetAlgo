@@ -23,6 +23,11 @@
 
 #ifndef __HISTOGRAM_H
 #define __HISTOGRAM_H
+
+#include "../MODULE_IMAGE/objet.h"
+#include "../MODULE_IMAGE/classe.h"
+#include "../MODULE_IMAGE/point.h"
+#include "../MODULE_IMAGE/move_type.h"
 #include "../MODULE_IMAGE/image.h"
 
 typedef struct cell * cell;
@@ -34,6 +39,7 @@ struct cell
 };
 
 typedef struct cell * histo;
+
 
 
 /**

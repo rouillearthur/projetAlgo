@@ -1,10 +1,4 @@
 #include "histogram.h"
-#include "../MODULE_IMAGE/objet.h"
-#include "../MODULE_IMAGE/classe.h"
-#include "../MODULE_IMAGE/point.h"
-#include "../MODULE_IMAGE/move_type.h"
-#include "../MODULE_IMAGE/image.h"
-
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -75,36 +69,46 @@ cell delete_list(cell list) {
 
 
 histo create_histo() {
+	int i;
+	int j;
+	histo **output=(histo**)malloc(256*sizeof(histo*));
+	for (i=0;i<256;i++) {
+		output[i]=(histo*)malloc(256*sizeof(histo));
+		for (j=0;j<256;j++) {
+			output[i][j]=NULL;
+		}
+	}
+	return *output;
 
-	histo* output;
+/*	histo* output;
 	int i;
 	int j;
 
 	output = (histo*)malloc(256*256*8);
-	output = NULL;
+	output = NULL;*/
     /* On alloue puis on initialise le pointeur output  */
-	for (i = 0; i < 256; i++) {
+	/*for (i = 0; i < 256; i++) {
 		output[i] = (histo)malloc(256*8);
 		output[i] = NULL;
 		for (j = 0; j < 256; j++) {
 			output[i+j] = NULL;
 		}
-	}
+	}*/
     /* On alloue puis on initialise chaque case du tableau  */
-	return *output;
+	/*return *output;*/
 }
 
-
+/*
 void init_histo(histo hist, image img) {
 	int i;
 	int j;
 	int B;
-	for (i = 0; i < img->hauteur ; i++) {
-		for (j = 0; j < img->largeur ; j++) {
-			if ((*hist)[i] == NULL) {
+	for (i = 0; i < image_give_hauteur(img) ; i++) {
+		for (j = 0; j < image_give_largeur(img) ; j++) {
+			if ((hist)[i] == NULL) {*/
 		/* Cree une liste a l’entree histo[R][G] si celle-ci est vide.  
 		Cette liste contient la valeur de B avec une frequence egale a 1 */
-			}
+		/*	}
 			else {
 				B = image_read_pixel(img, i, j, img->courant);
 				insert_cell((*histo)[i], B);
@@ -112,7 +116,7 @@ void init_histo(histo hist, image img) {
 		}
 	}
 }
-
+*//*
 void delete_histo(histo hist) {
     int i;
     int j;
@@ -123,4 +127,4 @@ void delete_histo(histo hist) {
 	free(hist[i]);
     }
     free(hist);
-}
+}*/
