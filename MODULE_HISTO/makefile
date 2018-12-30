@@ -2,8 +2,8 @@ CC=gcc
 CFLAGS=-Wall -Wextra -ansi -pedantic
 HISTOT=histoTest
 
-.PHONY: all clear
 all: $(HISTOT)
+.PHONY: all clear
 
 $(HISTOT): histogram.o histoTest.o 
 	$(CC) $^ -o $@
