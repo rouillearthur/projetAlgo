@@ -7,6 +7,7 @@
  * No portion of this document may be reproduced, copied
  * or revised without written permission of the authors.
  */
+
 /**
  * @author Arthur ROUILLÉ <arouille@ecole.ensicaen.fr>
  * @author Bastien HUBERT <bhubert@ecole.ensicaen.fr>
@@ -14,9 +15,15 @@
  *
  * @bug
  */
+
+
 /**
  * @file histogram.h
  */
+
+#ifndef __HISTOGRAM_H
+#define __HISTOGRAM_H
+#include "../MODULE_IMAGE/image.h"
 
 typedef struct cell * cell;
 struct cell
@@ -26,32 +33,32 @@ struct cell
   cell          next;
 };
 
-typedef struct cell *histo;
+typedef struct cell * histo;
 
-#ifndef __HISTOGRAM_H
-#define __HISTOGRAM_H
-#include "../MODULE_IMAGE/image.h"
 
 /**
- * @param  
- * @param 
- * @return 
+ * Alloue dynamiquement une cellule en initialisant les champs B et next. Le champ freq est initialisé à 1.
+ * @param B Intensité du bleu compris entre 0 et 255 d'un pixel donné
+ * @param next Cellule suivante
+ * @return Retourne la cellule contenant B de fréquence 1 et le pointeur vers la cellule suivante
  */
 cell create_cell(int B, cell next);
 
 
 /**
- * @param  
- * @param 
- * @return 
+ * Ajoute une cellule contenant B avec la fréquence 1 si B n'est pas présent dans la liste head. 
+ * Incrémente la fréquence de la cellule contenant B si celle ci existe. 
+ * @param head Pointeur sur la liste chainée
+ * @param B Intensité du bleu compris entre 0 et 255 d'un pixel donné
+ * @return Retourne la liste head modifiée
  */
 cell insert_cell(cell head, int B);
 
 
 /**
- * @param  
- * @param 
- * @return 
+ * Supprime toute les cellules d'une liste en libérant la mémoire.
+ * @param list Pointeur sur la liste chainée
+ * @return Retourne une liste vide.
  */
 cell delete_list(cell list);
 

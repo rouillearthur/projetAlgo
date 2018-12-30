@@ -5,19 +5,31 @@
 int main() {
 	cell list=NULL;
 	cell tmp=NULL;
- 	/*list=insert_cell(list,1);
- 	list=insert_cell(list,1);*/
-	list=insert_cell(list,10);
-	/*list=insert_cell(list,9);*/
-	/*list=insert_cell(list,7);
-	list=insert_cell(list,7);*/
 
+	printf("Création d'une liste chainée avec divers éléments\n");
+ 	list=insert_cell(list,1);
+ 	list=insert_cell(list,1);
+	list=insert_cell(list,1);
+	list=insert_cell(list,9);
+	list=insert_cell(list,200);
+	list=insert_cell(list,7);
+	list=insert_cell(list,300);
+	list=insert_cell(list,5);
 	tmp=list;
 	while (tmp) {
-		printf("%d %d %p -> ",list->B, list->freq, list->next);	
+		printf("B=%d f=%d -> ",tmp->B, tmp->freq);	
 		tmp=tmp->next;
 	}
-	printf("\n");
+	printf("NIL\n");
 
-  return 0;
+	printf("Suppression de la liste..\n");
+	list=delete_list(list);
+	tmp=list;
+	while (tmp) {
+		printf("B=%d f=%d -> ",tmp->B, tmp->freq);	
+		tmp=tmp->next;
+	}
+	printf("NIL\n");	
+
+	return 0;
 }
