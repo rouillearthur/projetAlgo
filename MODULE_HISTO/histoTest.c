@@ -1,22 +1,22 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include "histogram.h"
 
 int main() {
-
-	/* Test fonctions manip listes */
 	cell list=NULL;
 	cell tmp=NULL;
+	srand(time(NULL));
+	histo histogram;
+	int i;
 
+	/* Test fonctions manip listes */
 	printf("Création d'une liste chainée avec divers éléments\n");
- 	list=insert_cell(list,1);
- 	list=insert_cell(list,1);
-	list=insert_cell(list,1);
-	list=insert_cell(list,9);
-	list=insert_cell(list,200);
-	list=insert_cell(list,7);
-	list=insert_cell(list,300);
-	list=insert_cell(list,5);
+ 	for (i=0;i<6;i++) {
+ 		list=insert_cell(list,rand()%255);
+ 	}
+
+ 	
 	tmp=list;
 	while (tmp) {
 		printf("B=%d f=%d -> ",tmp->B, tmp->freq);	
@@ -34,22 +34,10 @@ int main() {
 	printf("NIL\n");
 
 	/* Test fonctions histo */
-	histo *histogram;
+	printf("Essai fonctions histo\n");
+	
 	histogram=create_histo();
-	/*int i;
-	int j=0;
-	for (i=0;i<256;i++) {
-		for (j=0;j<256;j++) {
-			printf("%d ",histogram[0][i]);
-		}
-		printf(" \n");
-	}*/
-
-	/*
-	histogram[1][2]=insert_cell(list,7);
-	printf("%d", (histogram[1][2])->B);
-	*/
-
-
-	return 0;
+	/*histogram[2][5]=insert_cell(list,9);*/
+	/*printf("B=%d f=%d -> ",histogram[2][5]->B,histogram[2][5]->freq );
+	*/return 0;
 }

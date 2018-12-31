@@ -71,6 +71,13 @@ cell delete_list(cell list) {
 histo create_histo() {
 	int i;
 	int j;
+	/*histo output[256][256];
+	for (i=0; i < 256; i++){
+		for (j=0; j < 256; j++){
+			output[i][j] = (cell)malloc(sizeof(cell));
+			output[i][j] = NULL;
+		}
+	}*/
 	histo **output=(histo**)malloc(256*sizeof(histo*));
 	for (i=0;i<256;i++) {
 		output[i]=(histo*)malloc(256*sizeof(histo));
@@ -78,7 +85,7 @@ histo create_histo() {
 			output[i][j]=NULL;
 		}
 	}
-	return *output;
+	return **output;
 
 /*	histo* output;
 	int i;
