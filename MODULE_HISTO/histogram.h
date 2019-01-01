@@ -38,9 +38,16 @@ struct cell
   cell          next;
 };
 
-typedef struct cell * histo;
+typedef struct cell ***histo;
 
+typedef struct histo_iter * histo_iter;
+struct histo_iter
+{
+	int R,G;
+	cell current;
+};
 
+typedef enum {false,true} boolean;
 
 /**
  * Alloue dynamiquement une cellule en initialisant les champs B et next. Le champ freq est initialisé à 1.
@@ -88,5 +95,54 @@ void init_histo(histo hist, image img);
  * @return 
  */
 void delete_histo(histo hist);
+
+/**
+ * @param  
+ * @param 
+ * @return 
+ */
+int give_freq_histo(histo h, int R, int G, int B);
+
+/**
+ * @param  
+ * @param 
+ * @return 
+ */
+histo_iter create_histo_iter();
+
+/**
+ * @param  
+ * @param 
+ * @return 
+ */
+void start_histo_iter(histo_iter);
+
+/**
+ * @param  
+ * @param 
+ * @return 
+ */
+boolean next_histo_iter(histo_iter);
+
+/**
+ * @param  
+ * @param 
+ * @return 
+ */
+void give_color_histo_iter(histo_iter,int*);
+
+/**
+ * @param  
+ * @param 
+ * @return 
+ */
+int give_freq_histo_iter(histo_iter);
+
+/**
+ * @param  
+ * @param 
+ * @return 
+ */
+void delete_histo_iter(histo_iter);
 
 #endif

@@ -35,9 +35,8 @@ int main() {
 
 	/* Test fonctions histo */
 	printf("Essai fonctions histo\n");
-	
 	histogram=create_histo();
-	/*histogram[2][5]=insert_cell(list,9);*/
-	/*printf("B=%d f=%d -> ",histogram[2][5]->B,histogram[2][5]->freq );
-	*/return 0;
+	histogram[2][5]=insert_cell(list,9);
+	printf("B=%d f=%d -> ",histogram[2][5]->B,histogram[2][5]->freq );
+	return 0;
 }

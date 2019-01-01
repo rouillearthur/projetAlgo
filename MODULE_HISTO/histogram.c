@@ -68,19 +68,12 @@ cell delete_list(cell list) {
 }
 
 
-histo create_histo() {
+histo create_histo(void) {
 	int i;
 	int j;
-	/*histo output[256][256];
-	for (i=0; i < 256; i++){
-		for (j=0; j < 256; j++){
-			output[i][j] = (cell)malloc(sizeof(cell));
-			output[i][j] = NULL;
-		}
-	}*/
 	histo **output=(histo**)malloc(256*sizeof(histo*));
 	for (i=0;i<256;i++) {
-		output[i]=(histo*)malloc(256*sizeof(histo));
+		*(output+i)=(histo*)malloc(256*sizeof(histo));
 		for (j=0;j<256;j++) {
 			output[i][j]=NULL;
 		}
@@ -105,25 +98,27 @@ histo create_histo() {
 	/*return *output;*/
 }
 
-/*
+
 void init_histo(histo hist, image img) {
 	int i;
 	int j;
 	int B;
+	int* pixel;
 	for (i = 0; i < image_give_hauteur(img) ; i++) {
 		for (j = 0; j < image_give_largeur(img) ; j++) {
-			if ((hist)[i] == NULL) {*/
+			if (hist[i][j] == NULL) {
 		/* Cree une liste a l’entree histo[R][G] si celle-ci est vide.  
 		Cette liste contient la valeur de B avec une frequence egale a 1 */
-		/*	}
+			}
 			else {
-				B = image_read_pixel(img, i, j, img->courant);
-				insert_cell((*histo)[i], B);
+				pixel=image_read_pixel(img, i, j, img->courant);
+				B=pixel[2];
+				hist[i][j]=insert_cell(hist[i][j], B);
 			}
 		}
 	}
 }
-*//*
+/*
 void delete_histo(histo hist) {
     int i;
     int j;
