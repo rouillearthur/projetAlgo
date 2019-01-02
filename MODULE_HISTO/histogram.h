@@ -46,7 +46,6 @@ struct histo_iter
 	int R,G;
 	cell current;
 };
-
 typedef enum {false,true} boolean;
 
 /**
@@ -77,72 +76,68 @@ cell delete_list(cell list);
 
 
 /**
- * @return 
+ * Alloue dynamiquement un tableau de taille 256x256 dont chaque entrée est initialisée au pointeur NULL.
+ * @return Histogramme initialisé
  */
 histo create_histo(void);
 
 
 /**
- * @param  
- * @param 
- * @return 
+ * Initialise un histogramme à partir d'une image.
+ * @param histo histogramme
+ * @param img image
  */
 void init_histo(histo hist, image img);
 
 
 /**
- * @param
- * @return 
+ * Parcours l'ensemble des cellules du tableau histo et efface toutes les listes allouées. Elle supprime également le tableau histo.
+ * @param hist histogramme
  */
 void delete_histo(histo hist);
 
 /**
- * @param  
- * @param 
- * @return 
+ * @param h histogramme 
+ * @param R composante rouge
+ * @param G composante verte
+ * @param B composante bleue
+ * @return Renvoie le nombre de pixels de couleur (R;G;B) dans l'image associée à histo.
  */
 int give_freq_histo(histo h, int R, int G, int B);
 
 /**
- * @param  
- * @param 
- * @return 
+ * Alloue une structure de type histo iter.
+ * @return Itérateur
  */
 histo_iter create_histo_iter();
 
 /**
- * @param  
- * @param 
- * @return 
+ * Positionne l'itérateur à la position qu'il avait à sa création
+ * @param histo Itérateur
  */
-void start_histo_iter(histo_iter);
+void start_histo_iter(histo_iter *histo);
 
 /**
- * @param  
- * @param 
- * @return 
+ * @param histo Itérateur
+ * @return VRAI s'il existe une prochaine liste histo[R][G] ou si on n'est pas en fin de liste selon le sens de lecture haut->droite et haut->bas. FAUX sinon. 
  */
-boolean next_histo_iter(histo_iter);
+boolean next_histo_iter(histo_iter histo);
 
 /**
- * @param  
- * @param 
- * @return 
+ * @param histo Itérateur 
+ * @param pixel tableau de 3 entiers contenant la composante RGB du pixel
  */
-void give_color_histo_iter(histo_iter,int*);
+void give_color_histo_iter(histo_iter histo, int* pixel);
 
 /**
- * @param  
- * @param 
- * @return 
+ * @param histo Itérateur
+ * @return Renvoie la fréquence de la couleur courante de l'itérateur.
  */
-int give_freq_histo_iter(histo_iter);
+int give_freq_histo_iter(histo_iter histo);
 
 /**
- * @param  
- * @param 
- * @return 
+ * @param histo Itérateur
  */
-void delete_histo_iter(histo_iter);
+void delete_histo_iter(histo_iter histo);
 
 #endif

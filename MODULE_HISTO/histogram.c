@@ -103,7 +103,8 @@ void init_histo(histo hist, image img) {
 	int i;
 	int j;
 	int B;
-	int* pixel;
+	unsigned char* pixel;
+	pixel={0};
 	for (i = 0; i < image_give_hauteur(img) ; i++) {
 		for (j = 0; j < image_give_largeur(img) ; j++) {
 			if (hist[i][j] == NULL) {
@@ -111,22 +112,99 @@ void init_histo(histo hist, image img) {
 		Cette liste contient la valeur de B avec une frequence egale a 1 */
 			}
 			else {
-				pixel=image_read_pixel(img, i, j, img->courant);
+				image_read_pixel(img, i, j, pixel);
 				B=pixel[2];
 				hist[i][j]=insert_cell(hist[i][j], B);
 			}
 		}
 	}
 }
-/*
+
 void delete_histo(histo hist) {
     int i;
     int j;
     for (i = 0; i < 256; i++) {
-	for (j = 0; j < 256; j++) {
-	    delete_list(*hist[i][j]);
-	    }
+		for (j = 0; j < 256; j++) {
+		    delete_list(hist[i][j]);
+		}
 	free(hist[i]);
     }
     free(hist);
-}*/
+}
+
+int give_freq_histo(histo h, int R, int G, int B) {
+	int freq_histo;
+	int exists;
+
+	cell cell;
+	cell=h[R][G];
+	exists=0;
+	/* On parcours h[R][G] pour vérifier si B existe */
+	while (cell && exists==0) {
+		if (cell->B==B) {
+			/* Si B existe */
+			exists=1;
+			freq_histo=cell->freq;
+		}
+		cell=cell->next;
+	}
+	/* Si B n'existe pas */
+	if (exists==0) {
+		freq_histo=0;
+	}
+
+	return freq_histo;
+}
+
+histo_iter create_histo_iter() {
+	/* EN CONSTRUCTION, JE PENSE QUIL FAUT CREER UN HISTO COMME VIABLE GLOBALE */
+	histo_iter new_histo;
+	static histo histo;
+	int R;
+	int G;
+
+	/* On cherche la première entrée non nulle */
+	for (R=0;R<256;R++) {
+		for (G=0;G<256;G++) {
+			if (/*histo[R][G]!=NULL*/1) {
+				break;
+			}
+		}
+	}
+
+	new_histo->R=R;
+	new_histo->G=G;
+	new_histo->current=histo[R][G];
+
+	return new_histo;
+}
+
+
+void start_histo_iter(histo_iter *histo) {
+	/* C'est si facile ??*/
+	*histo=create_histo_iter();
+}
+
+boolean next_histo_iter(histo_iter histo) {
+	boolean bool;
+
+	return bool;
+}
+
+void give_color_histo_iter(histo_iter histo, int* pixel) {
+	pixel[0]=histo->R;
+	pixel[1]=histo->G;
+	pixel[2]=histo->current->B;
+}
+
+int give_freq_histo_iter(histo_iter histo) {
+	int freq;
+	while (histo->current) {
+
+	}
+	return freq;
+}
+
+void delete_histo_iter(histo_iter histo) {
+
+}
