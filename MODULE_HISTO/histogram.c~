@@ -104,7 +104,7 @@ void init_histo(histo hist, image img) {
 	int j;
 	int B;
 	unsigned char* pixel;
-	pixel = 0;
+	pixel={0};
 	for (i = 0; i < image_give_hauteur(img) ; i++) {
 		for (j = 0; j < image_give_largeur(img) ; j++) {
 			if (hist[i][j] == NULL) {
