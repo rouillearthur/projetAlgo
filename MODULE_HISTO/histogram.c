@@ -69,16 +69,17 @@ cell delete_list(cell list) {
 
 
 histo create_histo(void) {
-	int i;
-	int j;
-	histo **output=(histo**)malloc(256*sizeof(histo*));
-	for (i=0;i<256;i++) {
-		*(output+i)=(histo*)malloc(256*sizeof(histo));
-		for (j=0;j<256;j++) {
-			output[i][j]=NULL;
-		}
+    int i;
+    int j;
+    histo **output = (histo**)malloc(256*sizeof(histo*));
+    for (i=0;i<256;i++) {
+	*(output+i)=(histo*)malloc(256*sizeof(histo));
+	for (j=0;j<256;j++) {
+	    output[i][j]=NULL;
 	}
-	return **output;
+    }
+    return **output;
+}
 
 /*	histo* output;
 	int i;
@@ -96,7 +97,7 @@ histo create_histo(void) {
 	}*/
     /* On alloue puis on initialise chaque case du tableau  */
 	/*return *output;*/
-}
+
 
 
 void init_histo(histo hist, image img) {
@@ -105,13 +106,16 @@ void init_histo(histo hist, image img) {
 	int B;
 	unsigned char* pixel;
 	pixel = 0;
+	printf("Dans init_histo\n");
 	for (i = 0; i < image_give_hauteur(img) ; i++) {
 		for (j = 0; j < image_give_largeur(img) ; j++) {
 			if (hist[i][j] == NULL) {
+			    printf("i = %d; j = %d",i,j);
 		/* Cree une liste a l’entree histo[R][G] si celle-ci est vide.  
 		Cette liste contient la valeur de B avec une frequence egale a 1 */
 			}
 			else {
+			    			    printf("i = %d; j = %d\n",i,j);
 				image_read_pixel(img, i, j, pixel);
 				B=pixel[2];
 				hist[i][j]=insert_cell(hist[i][j], B);
@@ -125,9 +129,14 @@ void delete_histo(histo hist) {
     int j;
     for (i = 0; i < 256; i++) {
 		for (j = 0; j < 256; j++) {
-		    delete_list(hist[i][j]);
+		    if hist[i][j] != NULL {
+		    printf("i = %d; j = %d\n",i,j);
+		    delete_list(hist[i][j]); /* La fonction mène à un core dump */
+		    printf("Ok suppression pour i = %d; j = %d\n",i,j);
+			}
 		}
 	free(hist[i]);
+	printf("On libère la ligne %d\n",i);
     }
     free(hist);
 }
@@ -157,7 +166,7 @@ int give_freq_histo(histo h, int R, int G, int B) {
 }
 
 histo_iter create_histo_iter() {
-	/* EN CONSTRUCTION, JE PENSE QUIL FAUT CREER UN HISTO COMME VIABLE GLOBALE */
+	/* EN CONSTRUCTION, JE PENSE QUIL FAUT CREER UN HISTO COMME VARIABLE GLOBALE */
 	histo_iter new_histo;
 	static histo histo;
 	int R;

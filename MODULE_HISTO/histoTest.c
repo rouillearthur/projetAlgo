@@ -17,26 +17,35 @@ int main() {
  	}
 
  	
-	tmp=list;
+	tmp = list;
 	while (tmp) {
 		printf("B=%d f=%d -> ",tmp->B, tmp->freq);	
-		tmp=tmp->next;
+		tmp = tmp->next;
 	}
 	printf("NIL\n");
 
 	printf("Suppression de la liste..\n");
-	list=delete_list(list);
-	tmp=list;
+	list = delete_list(list);
+	tmp = list;
 	while (tmp) {
 		printf("B=%d f=%d -> ",tmp->B, tmp->freq);	
-		tmp=tmp->next;
+		tmp = tmp->next;
 	}
 	printf("NIL\n");
 
 	/* Test fonctions histo */
-	printf("Essai fonctions histo\n");
-	histogram=create_histo();
-	histogram[2][5]=insert_cell(list,9);
+	printf("\nEssai fonctions histo\n");
+	histogram = create_histo();
+	printf("histogram après initialisation utilise %ld octets\n",sizeof(histogram));
+	printf("Création de l'histogramme réalisée avec succès\n");
+
+
+
+
+	delete_histo(histogram);
+	printf("histogram après suppression utilise %ld octets\n",sizeof(histogram));
+	printf("Destruction de l'histogramme réalisée avec succès\n");
+	histogram[2][5] = insert_cell(list,9);
 	printf("B=%d f=%d -> ",histogram[2][5]->B,histogram[2][5]->freq );
 	return 0;
 }
