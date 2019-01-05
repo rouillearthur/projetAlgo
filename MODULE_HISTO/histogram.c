@@ -139,27 +139,29 @@ int give_freq_histo(histo h, int R, int G, int B) {
 	return freq_histo;
 }
 
-histo_iter create_histo_iter() {
-	/* EN CONSTRUCTION, JE PENSE QUIL FAUT CREER UN HISTO COMME VARIABLE GLOBALE */
-	histo_iter new_histo;
-	static histo histo;
+histo_iter create_histo_iter(histo h) {
 	int R;
 	int G;
-
+	R=0;
+	G=0;
+	histo_iter h_iter=malloc(sizeof(histo_iter))
 	/* On cherche la première entrée non nulle */
-	for (R=0;R<256;R++) {
-		for (G=0;G<256;G++) {
-			if (/*histo[R][G]!=NULL*/1) {
-				break;
-			}
+	exists=0;
+
+	while(exists==0) {
+		if (h[R][G]!=NULL) {
+				exists=1;
 		}
+		R++;
+		G++;
 	}
+
 
 	new_histo->R=R;
 	new_histo->G=G;
 	new_histo->current=histo[R][G];
 
-	return new_histo;
+	return histo_iter;
 }
 
 
