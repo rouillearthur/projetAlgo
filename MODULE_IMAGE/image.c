@@ -175,6 +175,8 @@ int image_sauvegarder(image self,char* nom)
 
   return sauvegarde[Dim](self,id);
 }
+
+
 int image_to_stream(image self,FILE* id)
 {
   static PFsauvegarde sauvegarde[] =

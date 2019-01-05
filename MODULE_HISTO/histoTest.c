@@ -32,15 +32,17 @@ void testList() {
 	printf("NIL\n");
 }
 
+
 void testCreationHisto() {
 	histo histogram;
 	
 	histogram = create_histo();
-	cell new_cell=create_cell(1,NULL);
-	new_cell=insert_cell(new_cell,96);
-	histogram[0][2]=new_cell;
-	assert(histogram[0][2]->B==1);
-	assert(histogram[0][2]->next->B==96);
+	cell new_cell;
+	new_cell = create_cell(1,NULL);
+	new_cell = insert_cell(new_cell,96);
+	histogram[0][2] = new_cell;
+	assert(histogram[0][2]->B == 1);
+	assert(histogram[0][2]->next->B == 96);
 	printf("Fonction relative à la création d'histogrammes fonctionnelle\n");
 
 	delete_histo(histogram);
@@ -48,11 +50,13 @@ void testCreationHisto() {
 	
 }
 
+
 void testInitHisto() {
 	histo histogram;
-	/*image image=INSTANCIER(image);
-	init_histo(histogram,image);*/
+	image img = INSTANCIER(img);
+	  /* init_histo(histogram,img);*/
 }
+
 
 int main() {
 	testList();
