@@ -69,55 +69,32 @@ cell delete_list(cell list) {
 
 
 histo create_histo(void) {
-    int i;
-    int j;
-    histo **output = (histo**)malloc(256*sizeof(histo*));
-    for (i=0;i<256;i++) {
-	*(output+i)=(histo*)malloc(256*sizeof(histo));
-	for (j=0;j<256;j++) {
-	    output[i][j]=NULL;
-	}
-    }
-    return **output;
-}
-
-/*	histo* output;
 	int i;
 	int j;
-
-	output = (histo*)malloc(256*256*8);
-	output = NULL;*/
-    /* On alloue puis on initialise le pointeur output  */
-	/*for (i = 0; i < 256; i++) {
-		output[i] = (histo)malloc(256*8);
-		output[i] = NULL;
-		for (j = 0; j < 256; j++) {
-			output[i+j] = NULL;
+	histo output = malloc(256*sizeof(cell*));
+	for (i=0;i<256;i++) {
+		output[i]=malloc(256*sizeof(cell));
+		for (j=0;j<256;j++) {
+			output[i][j]=NULL;
 		}
-	}*/
-    /* On alloue puis on initialise chaque case du tableau  */
-	/*return *output;*/
+	}
+	return output;
+}
 
-
-
-void init_histo(histo hist, image img) {
+void init_histo(histo hist, image image) {
 	int i;
 	int j;
 	int B;
 	unsigned char* pixel;
 	pixel = 0;
-	printf("Dans init_histo\n");
-	for (i = 0; i < image_give_hauteur(img) ; i++) {
-		for (j = 0; j < image_give_largeur(img) ; j++) {
+	for (i = 0; i < image_give_hauteur(image) ; i++) {
+		for (j = 0; j < image_give_largeur(image) ; j++) {
+			image_read_pixel(image, i, j, pixel);
+			B=pixel[2];
 			if (hist[i][j] == NULL) {
-			    printf("i = %d; j = %d",i,j);
-		/* Cree une liste a l’entree histo[R][G] si celle-ci est vide.  
-		Cette liste contient la valeur de B avec une frequence egale a 1 */
+				hist[i][j]=create_cell(B,NULL);
 			}
 			else {
-			    			    printf("i = %d; j = %d\n",i,j);
-				image_read_pixel(img, i, j, pixel);
-				B=pixel[2];
 				hist[i][j]=insert_cell(hist[i][j], B);
 			}
 		}
@@ -128,17 +105,14 @@ void delete_histo(histo hist) {
     int i;
     int j;
     for (i = 0; i < 256; i++) {
-	for (i = 0; i < 256; i++) {
-	    printf("Core dump ?\n");
-	    if (hist[i][j] != NULL) {
-		printf("Nope\n");
-		printf("Ok suppression pour i = %d\n",i);
-	    }
-	    else printf("Nope mais dans else\n");
-	    printf("On libère la ligne %d\n",i);
-	}
+		for (j = 0; j < 256; j++) {
+		    if (hist[i][j] != NULL) {
+				hist[i][j]=delete_list(hist[i][j]);
+		    }
+		}
     }
     free(hist);
+    hist=NULL;
 }
 
 int give_freq_histo(histo h, int R, int G, int B) {

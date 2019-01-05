@@ -87,7 +87,7 @@ histo create_histo(void);
  * @param histo histogramme
  * @param img image
  */
-void init_histo(histo hist, image img);
+void init_histo(histo hist, image image);
 
 
 /**

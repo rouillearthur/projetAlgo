@@ -3,19 +3,17 @@
 #include <time.h>
 #include "histogram.h"
 
-int main() {
+void testList() {
 	cell list=NULL;
 	cell tmp=NULL;
-	srand(time(NULL));
-	histo histogram;
 	int i;
+	srand(time(NULL));
 
 	/* Test fonctions manip listes */
 	printf("Création d'une liste chainée avec divers éléments\n");
  	for (i=0;i<6;i++) {
  		list=insert_cell(list,rand()%255);
  	}
-
  	
 	tmp = list;
 	while (tmp) {
@@ -30,22 +28,36 @@ int main() {
 	while (tmp) {
 		printf("B=%d f=%d -> ",tmp->B, tmp->freq);	
 		tmp = tmp->next;
-	} /* Le while au-dessus n'est pas exécuté */
-	printf("NIL\n"); /* Mais cette ligne si */
+	} 
+	printf("NIL\n");
+}
 
-	/* Test fonctions histo */
-	printf("\nEssai fonctions histo\n");
+void testCreationHisto() {
+	histo histogram;
+	
 	histogram = create_histo();
-	printf("histogram après initialisation utilise %ld octets\n",sizeof(histogram));
-	printf("Création de l'histogramme réalisée avec succès\n");
-
-
-
+	cell new_cell=create_cell(1,NULL);
+	new_cell=insert_cell(new_cell,96);
+	histogram[0][2]=new_cell;
+	assert(histogram[0][2]->B==1);
+	assert(histogram[0][2]->next->B==96);
+	printf("Fonction relative à la création d'histogrammes fonctionnelle\n");
 
 	delete_histo(histogram);
-	printf("histogram après suppression utilise %ld octets\n",sizeof(histogram));
-	printf("Destruction de l'histogramme réalisée avec succès\n");
-	histogram[2][5] = insert_cell(list,9);
-	printf("B=%d f=%d -> ",histogram[2][5]->B,histogram[2][5]->freq );
+	printf("Fonction relative à la suppression d'histogrammes fonctionnelle\n");
+	
+}
+
+void testInitHisto() {
+	histo histogram;
+	/*image image=INSTANCIER(image);
+	init_histo(histogram,image);*/
+}
+
+int main() {
+	testList();
+	testCreationHisto();
+	testInitHisto();
+
 	return 0;
 }
