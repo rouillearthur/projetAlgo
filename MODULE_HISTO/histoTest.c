@@ -30,8 +30,8 @@ int main() {
 	while (tmp) {
 		printf("B=%d f=%d -> ",tmp->B, tmp->freq);	
 		tmp = tmp->next;
-	}
-	printf("NIL\n");
+	} /* Le while au-dessus n'est pas exécuté */
+	printf("NIL\n"); /* Mais cette ligne si */
 
 	/* Test fonctions histo */
 	printf("\nEssai fonctions histo\n");

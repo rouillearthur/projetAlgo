@@ -128,15 +128,15 @@ void delete_histo(histo hist) {
     int i;
     int j;
     for (i = 0; i < 256; i++) {
-		for (j = 0; j < 256; j++) {
-		    if hist[i][j] != NULL {
-		    printf("i = %d; j = %d\n",i,j);
-		    delete_list(hist[i][j]); /* La fonction mène à un core dump */
-		    printf("Ok suppression pour i = %d; j = %d\n",i,j);
-			}
-		}
-	free(hist[i]);
-	printf("On libère la ligne %d\n",i);
+	for (i = 0; i < 256; i++) {
+	    printf("Core dump ?\n");
+	    if (hist[i][j] != NULL) {
+		printf("Nope\n");
+		printf("Ok suppression pour i = %d\n",i);
+	    }
+	    else printf("Nope mais dans else\n");
+	    printf("On libère la ligne %d\n",i);
+	}
     }
     free(hist);
 }

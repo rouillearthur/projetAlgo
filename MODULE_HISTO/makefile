@@ -7,7 +7,7 @@ all: $(HISTOT)
 .PHONY: all clear
 
 $(HISTOT): histogram.o histoTest.o $(INC) 
-	$(CC) $^ -o $@ 
+	$(CC) $^ -o $@ -g 
 
 %.o: %.c histogram.h
 	$(CC) $(CFLAGS) $< -c
