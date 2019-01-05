@@ -35,9 +35,10 @@ void testList() {
 
 void testCreationHisto() {
 	histo histogram;
-	
-	histogram = create_histo();
 	cell new_cell;
+
+	histogram = create_histo();
+	
 	new_cell = create_cell(1,NULL);
 	new_cell = insert_cell(new_cell,96);
 	histogram[0][2] = new_cell;
@@ -52,8 +53,8 @@ void testCreationHisto() {
 
 
 void testInitHisto() {
-	histo histogram;
-	image img = INSTANCIER(img);
+/*	histo histogram;*/
+	/*image img = INSTANCIER(img);*/
 	  /* init_histo(histogram,img);*/
 }
 
