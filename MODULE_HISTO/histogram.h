@@ -81,10 +81,10 @@ histo create_histo(void);
 
 /**
  * Initialise un histogramme à partir d'une image.
- * @param histo histogramme
- * @param img image
+ * @param histo Prend en argument un histogramme précedemment initialisé 
+ * @param image Donne l'adresse relative ou absolue de l'image à traiter
  */
-void init_histo(histo h, image image);
+void init_histo(histo h, image img);
 
 
 /**
