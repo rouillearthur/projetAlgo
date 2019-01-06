@@ -51,64 +51,81 @@ void testCreationHisto() {
 
 
 void testInitHisto() {
-    histo histogram;
-    image img;
-    img = "../IMAGES/house.ppm";
+    histo histogram=create_histo();
+    image img=FAIRE_image();
+    char *nomImage = "../IMAGES/house.ppm";
+    image_charger(img,nomImage);
+    assert(image_charger(img,nomImage)==0);
     init_histo(histogram, img);
-    printf("\nL'initialisation de l'histogramme se fait correctement avec une image quelconque\n");
+    printf("L'initialisation de l'histogramme avec une image se fait correctement\n");
 }
 
 
 void testDeleteHisto() {
-    histo histogram;
-    image img;
-    img = "../IMAGES/house.ppm";
+    histo histogram=create_histo();
+    image img=FAIRE_image();
+    char *nomImage = "../IMAGES/house.ppm";
+    image_charger(img,nomImage);
     init_histo(histogram, img);
     delete_histo(histogram);
-    printf("\nLa destruction de l'histogramme se fait correctement avec une image quelconque\n");
+    printf("La destruction de l'histogramme se fait correctement\n");
 }
 
 
 void testGiveFreq() {
-    int i,j,k;
-    histo histogram;
-    image img;
-    img = "../IMAGES/house.ppm";
+    int i,j,k,nb;
+    nb=0;
+    histo histogram=create_histo();
+    image img=FAIRE_image();
+    char *nomImage = "../IMAGES/zelda.ppm";
+    image_charger(img,nomImage);
     init_histo(histogram, img);
-    for (i = 0; i < 255; i+5) {
-	for (j = 0; j < 255; j+5) {
-	    for (k = 0; k < 255; k+5) {
-		printf("La fréquence de la couleur %d %d %d est de %d\n",i,j,k,give_freq_histo(histogram , i, j, k));
-	    }
-	}
+
+    int freq;
+    for (i = 0; i < 256; i++) {
+    	for (j = 0; j < 256; j++) {
+    		for (k = 0; k < 256; k++) {
+    			freq=give_freq_histo(histogram , i, j, k);
+    			if (freq>3 && nb<6) {
+    			printf("La fréquence de la couleur %d %d %d est de %d\n",i,j,k,give_freq_histo(histogram , i, j, k));
+    			nb++;
+    		}
+    		}
+    	}
     }
-    delete_histo(histogram);
-    printf("\nL'interrogation des fréquences des couleurs se fait correctement avec une image quelconque\n");
+    printf("L'interrogation des fréquences des couleurs d'une image se fait correctement \n");
 }
 
 
 void testCreateIter() {   
-    histo histogram;
-    image img;
-    img = "../IMAGES/house.ppm";
+    histo histogram=create_histo();
+    image img=FAIRE_image();
+    char *nomImage = "../IMAGES/house.ppm";
+    image_charger(img,nomImage);
     init_histo(histogram, img);
-    create_histo_iter(histogram);
-    
-    printf("\nL'initialisation de l'itérateur se fait correctement avec une image quelconque\n");
+
+    histo_iter h_iter=create_histo_iter(histogram);
+    printf("h_iter->R=%d h_iter->G=%d\n",h_iter->R,h_iter->G);
+    assert(histogram[h_iter->R][h_iter->G-1]==NULL);
+    printf("L'initialisation de l'itérateur se fait correctement\n");
 }
 
 
 
 int main() {
+	printf("\nTESTS RELATIFS AUX LISTES\n");
     testList();
+
+    printf("\nTESTS RELATIFS A L'HISTOGRAMME\n");
     testCreationHisto();
-    /*testInitHisto();
-    testDeleteHisto();
-testGiveFreq();
-testCreateIter();
-    Plante au chargement de l'image (buf assertion fail) */
+    testInitHisto();
+	testGiveFreq();
+	testDeleteHisto();
 
+	printf("\nTESTS RELATIFS A L'ITERATEUR\n");
+	testCreateIter();
+   
     
-
+	printf("\n");
     return 0;
 }

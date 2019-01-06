@@ -545,12 +545,12 @@ static void lire_commentaires_priv(FILE* id)
       do
 	{
 	  fscanf(id,"%s",commentaire);
-	  fprintf(stderr,"%s ",commentaire);
+	 /* fprintf(stderr,"%s ",commentaire);*/
 	  fscanf(id,"%c",&c1);
 	}
       while(c1 != '\n');
       fscanf(id,"%c",&c2);
-      fprintf(stderr,"\n");
+      /*fprintf(stderr,"\n");*/
     }
   fseek(id,-1L,SEEK_CUR);
 }
