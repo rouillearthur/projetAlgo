@@ -11,7 +11,7 @@
 /**
  * @author Arthur ROUILLÉ <arouille@ecole.ensicaen.fr>
  * @author Bastien HUBERT <bhubert@ecole.ensicaen.fr>
- * @version     1.0.0 - 2018-12-28
+ * @version     1.0.0 - 2019-01-07
  *
  * @bug
  */
@@ -43,6 +43,7 @@ struct histo_iter
 	cell current;
 	histo histo;
 };
+
 typedef enum {false,true} boolean;
 
 /**

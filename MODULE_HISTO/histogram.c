@@ -196,44 +196,44 @@ boolean next_histo_iter(histo_iter h_iter) {
 	cell next_cell;
 	int R,G,exists;
 	
-	bool=false;
-	next_cell=h_iter->current->next;
-	R=h_iter->R;
-	G=h_iter->G;
-	exists=0;
+	bool = false;
+	next_cell = h_iter->current->next;
+	R = h_iter->R;
+	G = h_iter->G;
+	exists = 0;
 
-	if (next_cell) {
+	if (next_cell != NULL) {
 		/* On passe à l'élément suivant dans l'histogramme */
-		h_iter->current=next_cell;
+		h_iter->current = next_cell;
 		/* On vérifie si on n'est pas en fin de liste */
 		if (next_cell->next) 
-			bool=true;
+			bool = true;
 	}
 	else {
 		/* On passe à l'élément suivant dans l'histogramme */
-		if (G<256-1) {
+		if (G < 255) {
 			G++;
 		}
 		else {
 			R++;
-			G=0;
+			G = 0;
 		}
 
-		while (exists==0) {
+		while (exists == 0) {
 			/* On regarde si la prochaine liste est non vide */
-			if (h_iter->histo[R][G]!=NULL) {
-				exists=1;
+			if (h_iter->histo[R][G] != NULL) {
+				exists = 1;
 				/* Dans ce cas, la prochaine liste h[R][G] existe et on est pas en fin de liste */
-				bool=true;		
+				bool = true;		
 			}
 			/* Lecture colonne par colonne puis ligne par ligne */
 			else {
-				if (G<256-1) {
+				if (G < 255) {
 					G++;
 				}
 				else {
 					R++;
-					G=0;
+					G = 0;
 				}
 			}
 		}
@@ -244,18 +244,19 @@ boolean next_histo_iter(histo_iter h_iter) {
 
 
 void give_color_histo_iter(histo_iter h_iter, int* pixel) {
-	pixel[0]= h_iter->R;
-	pixel[1]= h_iter->G;
-	pixel[2]= h_iter->current->B;
+	pixel[0] = h_iter->R;
+	pixel[1] = h_iter->G;
+	pixel[2] = h_iter->current->B;
 }
 
 
 int give_freq_histo_iter(histo_iter h_iter) {
-	int freq=h_iter->current->freq;
+	int freq = h_iter->current->freq;
 	return freq;
 }
 
 
 void delete_histo_iter(histo_iter h_iter) {
 	free(h_iter);
+	h_iter = NULL;
 }
