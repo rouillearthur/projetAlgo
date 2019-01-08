@@ -233,45 +233,52 @@ boolean next_histo_iter(histo_iter h_iter) {
 	G = h_iter->G;
 	exists = 0;
 
-	if (next_cell != NULL) {
-		/* On passe à l'élément suivant dans l'histogramme */
+	/* Si on est pas en fin de liste... */
+	if (next_cell) {
+
+		/* on passe à l'élément suivant dans l'histogramme */
 		h_iter->current = next_cell;
-		/* On vérifie si on n'est pas en fin de liste */
-		if (next_cell->next) 
-			bool = true;
+		bool = true;
+		/*printf("hhh\n");*/
 	}
 	else {
-		/* On passe à l'élément suivant dans l'histogramme */
+
+		/* Sinon on passe à l'élément R,G suivant dans l'histogramme */
 		if (G < 255) {
 			G++;
 		}
-		else {
+		else if (R<255) {
 			R++;
 			G = 0;
 		}
 	
-		while (exists == 0) {
-			/* On regarde si la prochaine liste est non vide */
+		while (exists == 0 && R<255) {
+
+			/* On regarde si la liste de l'élément suivant est non vide */
 			if (h_iter->histo[R][G]) {
 				exists = 1;
 				/* Dans ce cas, la prochaine liste h[R][G] existe et on est pas en fin de liste */
 				bool = true;	
 			}
-			/* Lecture colonne par colonne puis ligne par ligne */
+			/* On regarde l'élément suivant tant que h[R][G] est vide */
 			else {
 				if (G < 255) {
 					G++;
+					
 				}
-				else {
+				else if (R<255) {
+				
 					R++;
 					G = 0;
 				}
 			}
 		}
+		h_iter->R=R;
+		h_iter->G=G;
+		h_iter->current=h_iter->histo[R][G];
 	}
-	h_iter->R=R;
-	h_iter->G=G;
-	h_iter->current=h_iter->histo[R][G];
+	
+	
 	/* Si la liste h[R][G] suivante n'existe pas ou si on est en fin de liste on renvoie false */ 
 	return bool;
 }

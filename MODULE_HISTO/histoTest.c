@@ -12,7 +12,7 @@ void testList() {
 	srand(time(NULL));
 
     /* Test fonctions manip listes */
-	printf("Création d'une liste chainée avec divers éléments\n");
+	printf("-> Création d'une liste chainée avec B aléatoire\n");
 	for (i = 0; i < 6; i++) {
 		list = insert_cell(list, rand()%255);
 	}
@@ -24,7 +24,7 @@ void testList() {
 	}
 	printf("NIL\n");
 
-	printf("Suppression de la liste..\n");
+	printf("-> Suppression de la liste..\n");
 	list = delete_list(list);
 	tmp = list;
 	while (tmp) {
@@ -46,7 +46,7 @@ void testCreationHisto() {
 	histogram[0][2] = new_cell;
 	assert(histogram[0][2]->B == 1);
 	assert(histogram[0][2]->next->B == 96);
-	printf("Création de l'histogramme réalisée avec succès\n");
+	printf("-> Création de l'histogramme réalisée avec succès\n");
 }
 
 
@@ -57,7 +57,7 @@ void testInitHisto() {
 	image_charger(img,nomImage);
 	assert(image_charger(img,nomImage)==0);
 	init_histo(histogram, img);
-	printf("L'initialisation de l'histogramme avec une image se fait correctement\n");
+	printf("-> L'initialisation de l'histogramme avec une image se fait correctement\n");
 }
 
 
@@ -68,7 +68,7 @@ void testDeleteHisto() {
 	image_charger(img,nomImage);
 	init_histo(histogram, img);
 	delete_histo(histogram);
-	printf("La destruction de l'histogramme se fait correctement\n");
+	printf("-> La destruction de l'histogramme se fait correctement\n");
 }
 
 
@@ -82,7 +82,7 @@ void testGiveFreq() {
 	image_charger(img,nomImage);
 	init_histo(histogram, img);
 
-	
+	printf("-> Interrogation de quelques fréquences des couleurs d'une image : \n");
 	for (i = 26; i < 256; i++) {
 		for (j = 20; j < 256; j++) {
 			for (k = 0; k < 256; k++) {
@@ -95,7 +95,7 @@ void testGiveFreq() {
 			}
 		}
 	}
-	printf("L'interrogation des fréquences des couleurs d'une image se fait correctement \n");
+	
 }
 
 
@@ -104,14 +104,27 @@ void testCreateIter() {
 	image img = FAIRE_image();
 	char *nomImage = "../IMAGES/house.ppm";
 	histo_iter h_iter;
-
+	int i,j,R,G;
+	int compteurCelluleNulle=0;
+	
 	
 	image_charger(img,nomImage);
 	init_histo(histogram, img);
 	h_iter=create_histo_iter(histogram);
-	
-	printf("%4sh_iter->R=%d h_iter->G=%d\n", "",h_iter->R, h_iter->G);
-	assert(histogram[h_iter->R][h_iter->G-1] == NULL);
+	R=h_iter->R;
+	G=h_iter->G;
+	/* On vérfie que le nombre de cellules vides avant (h_iter->R,h_iter->G,*) est correct i.e. égal à h_iter->R*h_iter->G */
+	for (i=0;i<R;i++) {
+		for (j=0;j<G;j++) {
+			if (histogram[i][j]==NULL) {
+				compteurCelluleNulle++;
+			}
+		}
+	}
+	assert(compteurCelluleNulle == R*G);
+
+	/* On vérifie que la cellule en question est bien non nulle */
+	assert(histogram[R][G]!=NULL);
 	printf("-> L'initialisation de l'itérateur se fait correctement\n");
 }
 
@@ -137,7 +150,7 @@ void testNextIter() {
 	image img = FAIRE_image();
 	char *nomImage = "../IMAGES/house.ppm";
 	histo_iter h_iter,h_iter_bis;
-
+	int R1,G1,R2,G2;
 	image_charger(img,nomImage);
 	init_histo(histogram, img);
 	h_iter = create_histo_iter(histogram);
@@ -145,20 +158,27 @@ void testNextIter() {
     /*delete_histo(histogram);*/
 
     /* Test dans le cas où l'on a bien un élément suivant */
-	printf("Initialement on a : h_iter->R=%d h_iter->G=%d\n", h_iter->R, h_iter->G);
+	R1=h_iter->R;
+	G1=h_iter->G;
 	next_histo_iter(h_iter);
-	printf("Le prochain élément est : h_iter->R=%d h_iter->G=%d\n", h_iter->R, h_iter->G);
-	assert(histogram[h_iter->R][h_iter->G-1] == NULL);
-	printf("La recherche du prochain élément se fait avec succès\n");
+	R2=h_iter->R;
+	G2=h_iter->G;
+
+	printf("-> La recherche du prochain élément se fait avec succès :\n");
+	printf("%4sInitialement on a : h_iter->R=%d h_iter->G=%d\n","", R1, G1);
+	printf("%4sLe prochain élément est : h_iter->R=%d h_iter->G=%d\n","", R2, G2);
 
     /* Test dans le cas de la fin de la liste */
-	printf("Initialement on a : h_iter_bis->R=%d h_iter_bis->G=%d\n", h_iter_bis->R, h_iter_bis->G);
-	while (next_histo_iter(h_iter_bis) == true) {
-		printf("%4sh_iter_bis->R=%d h_iter_bis->G=%d\n","", h_iter_bis->R, h_iter_bis->G);
+	while (next_histo_iter(h_iter_bis)) {
+		/* on va en fin de liste */
 	}
-	printf("Le prochain élément est (après épuisement de la liste) : h_iter_bis->R=%d h_iter_bis->G=%d\n", h_iter_bis->R, h_iter_bis->G);
-
-	printf("-> Next_histo fonctionne correctement\n");
+	R2=h_iter_bis->R;
+	G2=h_iter_bis->G;
+	
+	assert(histogram[R2][G2+1]==NULL);
+	printf("-> La recherche du dernier élément se fait avec succès :\n");
+	printf("%4sInitialement on a : h_iter_bis->R=%d h_iter_bis->G=%d\n", "",R1, G1);
+	printf("%4sLe dernier élément est : h_iter_bis->R=%d h_iter_bis->G=%d\n", "",R2, G2);
 }
 
 
@@ -167,60 +187,59 @@ void testStartIter() {
 	image img = FAIRE_image();
 	char *nomImage = "../IMAGES/house.ppm";
 	histo_iter h_iter;
+	int R1,R2,R3,G1,G2,G3;
 
 	image_charger(img,nomImage);
 	init_histo(histogram, img);
 	h_iter = create_histo_iter(histogram);
-	printf("Initialement on a : h_iter->R=%d h_iter->G=%d\n", h_iter->R, h_iter->G);
-	assert(histogram[h_iter->R][h_iter->G-1] == NULL);
+	R1=h_iter->R;
+	G1=h_iter->G;
 
 	next_histo_iter(h_iter);
 	next_histo_iter(h_iter);
 	next_histo_iter(h_iter);
-   /* assert(histogram[h_iter->R][h_iter->G-1] == NULL);*/
+	R2=h_iter->R;
+	G2=h_iter->G;
 
-	printf("Après trois appels de next_iter on a : h_iter->R=%d h_iter->G=%d\n", h_iter->R, h_iter->G);
 	start_histo_iter(h_iter);
-	printf("Après appel de la fonction start_histo_iter on a : h_iter->R=%d h_iter->G=%d\n", h_iter->R, h_iter->G);
-	assert(histogram[h_iter->R][h_iter->G-1] == NULL);
-	printf("-> La remise à zéro de l'itérateur se fait correctement\n");
+	R3=h_iter->R;
+	G3=h_iter->G;
+	
+	printf("-> La remise à zéro de l'itérateur se fait correctement :\n");
+	printf("%4sInitialement on a : h_iter->R=%d h_iter->G=%d\n", "",R1, G1);
+	printf("%4sAprès trois appels de next_iter on a : h_iter->R=%d h_iter->G=%d\n", "",R2, G2);
+	printf("%4sAprès appel de la fonction start_histo_iter on a : h_iter->R=%d h_iter->G=%d\n", "",R3, G3);
 }
 
 
-void testColorIter() {
-	int* tabColor=malloc(3*sizeof(int));
-	histo histogram = create_histo();
-	image img = FAIRE_image();
-	char *nomImage = "../IMAGES/house.ppm";
-	histo_iter h_iter;
-
-	image_charger(img,nomImage);
-	init_histo(histogram, img);
-	h_iter = create_histo_iter(histogram);
-
-	give_color_histo_iter(h_iter, tabColor);
-	printf("R = %d, G = %d, B = %d\n", tabColor[0], tabColor[1], tabColor[2]);
-	printf("-> L'obtention de la couleur de l'élément courant de l'itérateur se fait correctement.\n");
-}
-
-
-void testFreqIter() {
+void testColorFreqIter() {
+	int* tabColor=calloc(3,sizeof(int));
+	int compteurCouleurs=0;
+	int bleuPrecedent=0;
 	int freq;
-	int* tabColor=malloc(3*sizeof(int));
 	histo histogram = create_histo();
 	image img = FAIRE_image();
-	char *nomImage = "../IMAGES/house.ppm";
+	char *nomImage = "../IMAGES/deg.ppm";
 	histo_iter h_iter;
 
 	image_charger(img,nomImage);
 	init_histo(histogram, img);
 	h_iter = create_histo_iter(histogram);
 
-	give_color_histo_iter(h_iter, tabColor);
-	freq = give_freq_histo_iter(h_iter);
+	/* deg.ppm est une image 256*256 avec un degradé (0,255,255) vers (255,255,255) avec un pas de 1 pour R
+	On doit donc avoir une liste R={0..255} et freq=256 par couleur car il y a une teinte de bleu par ligne */
 
-	printf("La fréquence de la couleur %d %d %d est %d\n", tabColor[0], tabColor[1], tabColor[2], freq);
-	printf("-> L'obtention de la fréquence de la couleur de l'élément courant de l'itérateur se fait correctement.\n");
+	do {
+		give_color_histo_iter(h_iter, tabColor);
+		freq = give_freq_histo_iter(h_iter);
+		if (tabColor[1]==tabColor[2] && tabColor[0]==compteurCouleurs && freq==256) {
+			compteurCouleurs++;
+		}
+
+	}
+	while(next_histo_iter(h_iter));
+	assert(compteurCouleurs==255);
+	printf("-> L'obtention de la couleur et de la fréquence de l'élément courant de l'itérateur se font correctement\n");
 }
 
 
@@ -237,11 +256,9 @@ int main() {
 
 	printf("\nTESTS RELATIFS A L'ITÉRATEUR\n");
 	testCreateIter();
-	testDeleteIter();
 	testNextIter();
 	testStartIter();
-	testColorIter();
-	testFreqIter();
+	testColorFreqIter();
 	testDeleteIter();
 
 	printf("\n");

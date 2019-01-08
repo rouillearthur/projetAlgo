@@ -1,0 +1,56 @@
+
+TESTS RELATIFS AUX LISTES
+Création d'une liste chainée avec divers éléments
+    B=31 f=1 -> B=118 f=1 -> B=136 f=1 -> B=151 f=1 -> B=230 f=1 -> B=235 f=1 -> NIL
+Suppression de la liste..
+    NIL
+
+TESTS RELATIFS A L'HISTOGRAMME
+Création de l'histogramme réalisée avec succès
+L'initialisation de l'histogramme avec une image se fait correctement
+    La fréquence de la couleur 163 166 129 est de 84
+    La fréquence de la couleur 164 165 129 est de 80
+    La fréquence de la couleur 164 167 130 est de 82
+L'interrogation des fréquences des couleurs d'une image se fait correctement 
+La destruction de l'histogramme se fait correctement
+
+TESTS RELATIFS A L'ITÉRATEUR
+    h_iter->R=26 h_iter->G=20
+-> L'initialisation de l'itérateur se fait correctement
+-> La destruction de l'itérateur se fait correctement
+Initialement on a : h_iter->R=26 h_iter->G=20
+Le prochain élément est : h_iter->R=28 h_iter->G=5
+La recherche du prochain élément se fait avec succès
+Initialement on a : h_iter_bis->R=26 h_iter_bis->G=20
+    h_iter_bis->R=28 h_iter_bis->G=5
+    h_iter_bis->R=28 h_iter_bis->G=12
+    h_iter_bis->R=28 h_iter_bis->G=13
+    h_iter_bis->R=31 h_iter_bis->G=4
+    h_iter_bis->R=31 h_iter_bis->G=5
+    h_iter_bis->R=31 h_iter_bis->G=8
+    h_iter_bis->R=31 h_iter_bis->G=9
+    h_iter_bis->R=32 h_iter_bis->G=5
+    h_iter_bis->R=32 h_iter_bis->G=8
+    h_iter_bis->R=32 h_iter_bis->G=11
+    h_iter_bis->R=32 h_iter_bis->G=12
+    h_iter_bis->R=33 h_iter_bis->G=9
+    h_iter_bis->R=33 h_iter_bis->G=17
+    h_iter_bis->R=33 h_iter_bis->G=29
+    h_iter_bis->R=34 h_iter_bis->G=6
+    h_iter_bis->R=34 h_iter_bis->G=9
+    h_iter_bis->R=34 h_iter_bis->G=13
+    h_iter_bis->R=34 h_iter_bis->G=28
+    h_iter_bis->R=34 h_iter_bis->G=32
+    h_iter_bis->R=35 h_iter_bis->G=9
+Le prochain élément est (après épuisement de la liste) : h_iter_bis->R=35 h_iter_bis->G=9
+-> Next_histo fonctionne correctement
+Initialement on a : h_iter->R=26 h_iter->G=20
+Après trois appels de next_iter on a : h_iter->R=28 h_iter->G=13
+Après appel de la fonction start_histo_iter on a : h_iter->R=26 h_iter->G=20
+-> La remise à zéro de l'itérateur se fait correctement
+1 
+-> L'obtention de la couleur de l'élément courant de l'itérateur se fait correctement.
+La fréquence de la couleur 26 20 45 est 1
+-> L'obtention de la fréquence de la couleur de l'élément courant de l'itérateur se fait correctement.
+-> La destruction de l'itérateur se fait correctement
+
