@@ -10,6 +10,7 @@ cell create_cell(int B, cell next) {
 	return new_cell;
 }
 
+
 cell insert_cell(cell head, int B) {
 	int exists;
 	cell tmp;
@@ -54,6 +55,7 @@ cell insert_cell(cell head, int B) {
 	return head;
 
 }
+
 
 cell delete_list(cell list) {
     /* head est la tête "courante" de la liste */
@@ -128,23 +130,21 @@ int give_freq_histo(histo h, int R, int G, int B) {
 	int freq_histo;
 	int exists;
 
-	cell cell=h[R][G];
-	exists=0;
+	cell cell = h[R][G];
+	exists = 0;
     /* On parcours h[R][G] pour vérifier si B existe */
-	while (cell && exists==0) {
-		if (cell->B==B) {
+	while (cell && exists == 0) {
+		if (cell->B == B) {
 	    /* Si B existe */
-
-			exists=1;
-			freq_histo=cell->freq;
+			exists = 1;
+			freq_histo = cell->freq;
 		}
 		else {
-			cell=cell->next;
-		}
-	}
+			cell = cell->next;
+		}	}
     /* Si B n'existe pas */
-	if (exists==0) {
-		freq_histo=0;
+	if (exists == 0) {
+		freq_histo = 0;
 	}
 
 	return freq_histo;
@@ -160,19 +160,19 @@ histo_iter create_histo_iter(histo h) {
 	exists=0;
 
 	/* On cherche la première entrée non nulle */
-	while (exists==0) {
+	while (exists == 0) {
 		/* On regarde si la prochaine liste est non vide */
-		if (h[R][G]!=NULL) {
-			exists=1;		
+		if (h[R][G] != NULL) {
+			exists = 1;		
 		}
 		/* Lecture colonne par colonne puis ligne par ligne */
 		else {
-			if (G<256-1) {
+			if (G < 255) {
 				G++;
 			}
 			else {
 				R++;
-				G=0;
+				G = 0;
 			}
 		}
 	}
@@ -180,7 +180,7 @@ histo_iter create_histo_iter(histo h) {
 	h_iter->R = R;
 	h_iter->G = G;
 	h_iter->current = h[R][G];
-	h_iter->histo=h;
+	h_iter->histo = h;
 
 	return h_iter;
 }
@@ -189,35 +189,35 @@ histo_iter create_histo_iter(histo h) {
 void start_histo_iter(histo_iter h_iter) {
 	/*h_iter = create_histo_iter(h_iter->histo);*/
 	int exists,R,G;
-	h_iter->R=0;
-	h_iter->G=0;
+	h_iter->R = 0;
+	h_iter->G = 0;
 	h_iter->current = NULL;
 
 	
-	exists=0;
-	R=h_iter->R;
-	G=h_iter->G;
+	exists = 0;
+	R = h_iter->R;
+	G = h_iter->G;
 
 	/* On cherche la première entrée non nulle */
-	while (exists==0) {
+	while (exists == 0) {
 		/* On regarde si la prochaine liste est non vide */
 		if (h_iter->histo[R][G]) {
-			exists=1;		
+			exists = 1;		
 		}
 		/* Lecture colonne par colonne puis ligne par ligne */
 		else {
-			if (G<256-1) {
+			if (G < 255) {
 				G++;
 			}
 			else {
 				R++;
-				G=0;
+				G = 0;
 			}
 		}
 	}
 
-	h_iter->R=R;
-	h_iter->G=G;
+	h_iter->R = R;
+	h_iter->G = G;
 	h_iter->current = h_iter->histo[R][G];
 }
 
@@ -247,12 +247,12 @@ boolean next_histo_iter(histo_iter h_iter) {
 		if (G < 255) {
 			G++;
 		}
-		else if (R<255) {
+		else if (R < 255) {
 			R++;
 			G = 0;
 		}
 	
-		while (exists == 0 && R<255) {
+		while ((exists == 0) && (R < 255)) {
 
 			/* On regarde si la liste de l'élément suivant est non vide */
 			if (h_iter->histo[R][G]) {
@@ -263,21 +263,18 @@ boolean next_histo_iter(histo_iter h_iter) {
 			/* On regarde l'élément suivant tant que h[R][G] est vide */
 			else {
 				if (G < 255) {
-					G++;
-					
+				    G++;
 				}
-				else if (R<255) {
-				
+				else if (R < 255) {
 					R++;
 					G = 0;
 				}
 			}
 		}
-		h_iter->R=R;
-		h_iter->G=G;
-		h_iter->current=h_iter->histo[R][G];
+		h_iter->R = R;
+		h_iter->G = G;
+		h_iter->current = h_iter->histo[R][G];
 	}
-	
 	
 	/* Si la liste h[R][G] suivante n'existe pas ou si on est en fin de liste on renvoie false */ 
 	return bool;

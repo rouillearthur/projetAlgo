@@ -1,0 +1,29 @@
+#include "histogram.h"
+#include <stdlib.h>
+#include <stdio.h>
+
+void quantification(histo h, int* tab, int K) {
+    int ctr;
+    int* occ;
+    histo_iter h_iter;
+    ctr = 0;
+    h_iter = creater_histo_iter(h);
+
+    occ[ctr] = h_iter->R;
+    occ[ctr+1] = h_iter->G;
+    occ[ctr+2] = h_iter->B;
+    occ[ctr+3] = give_freq_histo_iter(h_iter);
+    ctr += 4;
+
+    while (next_histo_iter(h_iter) == true) {
+	occ[ctr] = h_iter->R;
+	ctr++;
+	occ[ctr] = h_iter->G;
+	ctr++;
+	occ[ctr] = h_iter->B;
+	ctr++;
+	occ[ctr] = give_freq_histo_iter(h_iter);
+	ctr++;	
+    }
+    /* On a donc une liste avec toutes les couleurs de l'image ainsi que leur fréquence. On va alors trier jusqu'à obtenir les K premières valeurs */
+}

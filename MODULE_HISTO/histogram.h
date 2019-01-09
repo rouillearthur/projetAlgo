@@ -94,6 +94,7 @@ void init_histo(histo h, image img);
  */
 void delete_histo(histo h);
 
+
 /**
  * @param h histogramme 
  * @param R composante rouge
@@ -103,11 +104,13 @@ void delete_histo(histo h);
  */
 int give_freq_histo(histo h, int R, int G, int B);
 
+
 /**
  * Alloue une structure de type histo iter.
  * @return Itérateur
  */
 histo_iter create_histo_iter(histo h);
+
 
 /**
  * Positionne l'itérateur à la position qu'il avait à sa création
@@ -115,11 +118,13 @@ histo_iter create_histo_iter(histo h);
  */
 void start_histo_iter(histo_iter h_iter);
 
+
 /**
  * @param histo Itérateur
  * @return VRAI s'il existe une prochaine liste histo[R][G] ou si on n'est pas en fin de liste selon le sens de lecture haut->droite et haut->bas. FAUX sinon. 
  */
 boolean next_histo_iter(histo_iter h_iter);
+
 
 /**
  * @param histo Itérateur 
@@ -127,15 +132,18 @@ boolean next_histo_iter(histo_iter h_iter);
  */
 void give_color_histo_iter(histo_iter h_iter, int* pixel);
 
+
 /**
  * @param histo Itérateur
  * @return Renvoie la fréquence de la couleur courante de l'itérateur.
  */
 int give_freq_histo_iter(histo_iter h_iter);
 
+
 /**
  * @param histo Itérateur
  */
 void delete_histo_iter(histo_iter h_iter);
+
 
 #endif
