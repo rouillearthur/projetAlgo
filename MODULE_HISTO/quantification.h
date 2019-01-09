@@ -34,7 +34,7 @@
  * @param max est le nombre maximal de valeurs que l'on veut voir triées (en pratique c'est 4K valeurs de retour). Il est compris entre 0 et n
  * @return On renvoie un tableau trié de longueur 4K (triplet pour la couleur et un nombre pour le nombre d'occurences
  */
-int* triSelection(int* tabToSort, int n, int max);
+int* tri(int* tabToSort, long n, long max);
 
     
 /**
@@ -42,7 +42,7 @@ int* triSelection(int* tabToSort, int n, int max);
  * @param tab est un tableau d'entiers représentant les K couleurs les plus fréquentes
  * @param K est l'entier définissant le nombre de couleurs par lequel on souhaite quantifier l'image 
  */
-void quantification(histo h, int* tab, int K);
+void quantification(histo h, int* tab, long K);
 
 
 /**
@@ -51,6 +51,6 @@ void quantification(histo h, int* tab, int K);
  * @param tab est le tableau d'entier donnant les couleurs avec lesquelles ré-échantilloner l'image
  * @param K est le nombre de couleurs avec lesquelles ré-échantilloner l'image
  */
-void mapping(image input, image output, int* tab, int K);
+void mapping(image input, image output, int* tab, long K);
 
 #endif
