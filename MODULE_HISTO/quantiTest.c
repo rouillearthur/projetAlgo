@@ -6,6 +6,7 @@
 
 void testQuantification() {
     long i;
+    int k;
     int* tab;
     histo histogram = create_histo();
     image img = FAIRE_image();
@@ -13,10 +14,10 @@ void testQuantification() {
 
     image_charger(img,nomImage);
     init_histo(histogram, img);
-
-    quantification(histogram, tab, 100);
+    k=10;
+    quantification(histogram, tab, k);
     
-    for (i = 0; i < 40; i += 4) {
+    for (i = 0; i < k; i++) {
 	printf("La fréquence de la couleur %d %d %d est %d\n",tab[i], tab[i+1], tab[i+2], tab[i+3]);
     }
 	
